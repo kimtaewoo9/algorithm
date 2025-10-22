@@ -14,9 +14,7 @@ int main(){
 
     int n,m;
     cin >> n;
-    m=n;
-
-    queue<pair<int,int>> Q;
+    m = n;
 
     for(int cnt_i=0;cnt_i<n;cnt_i++){
         for(int cnt_j=0;cnt_j<m;cnt_j++){
@@ -24,11 +22,14 @@ int main(){
         }
     }
 
-    int cnt=0;
+    queue<pair<int,int>> Q;
+    
+    // 색맹 아닌 사람
+    int ans1 = 0;
     for(int cnt_i=0;cnt_i<n;cnt_i++){
         for(int cnt_j=0;cnt_j<m;cnt_j++){
             if(visited[cnt_i][cnt_j] == 0){
-                cnt += 1;
+                ans1 += 1;
                 Q.push({cnt_i,cnt_j});
                 visited[cnt_i][cnt_j] = 1;
 
@@ -39,31 +40,33 @@ int main(){
                         int ny = cur.second+dy[dir];
 
                         if(nx<0||nx>=n||ny<0||ny>=m) continue;
-                        if(board[nx][ny] != board[cur.first][cur.second]) continue;
                         if(visited[nx][ny] != 0) continue;
+                        if(board[nx][ny] != board[cur.first][cur.second]) continue;
 
-                        Q.push({nx,ny});
                         visited[nx][ny] = 1;
+                        Q.push({nx,ny});
                     }
                 }
             }
         }
     }
 
-    int cnt2=0;
+    // 색맹인 사람
     for(int cnt_i=0;cnt_i<n;cnt_i++){
         for(int cnt_j=0;cnt_j<m;cnt_j++){
-            visited[cnt_i][cnt_j] = 0;
             if(board[cnt_i][cnt_j] == 'G'){
                 board[cnt_i][cnt_j] = 'R';
             }
         }
     }
 
+    for(int cnt_i=0;cnt_i<n;cnt_i++) fill(visited[cnt_i], visited[cnt_i]+m, 0);
+
+    int ans2=0;
     for(int cnt_i=0;cnt_i<n;cnt_i++){
         for(int cnt_j=0;cnt_j<m;cnt_j++){
             if(visited[cnt_i][cnt_j] == 0){
-                cnt2 += 1;
+                ans2 += 1;
                 Q.push({cnt_i,cnt_j});
                 visited[cnt_i][cnt_j] = 1;
 
@@ -74,18 +77,18 @@ int main(){
                         int ny = cur.second+dy[dir];
 
                         if(nx<0||nx>=n||ny<0||ny>=m) continue;
-                        if(board[nx][ny] != board[cur.first][cur.second]) continue;
                         if(visited[nx][ny] != 0) continue;
+                        if(board[nx][ny] != board[cur.first][cur.second]) continue;
 
-                        Q.push({nx,ny});
                         visited[nx][ny] = 1;
+                        Q.push({nx,ny});
                     }
                 }
             }
         }
     }
 
-    cout << cnt << " " << cnt2;
+    cout << ans1 << " " << ans2;
 
     return 0;
 }
