@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int dp[102];
+long long dp[102];
 
 int main(){
     ios::sync_with_stdio(false);
