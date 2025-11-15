@@ -2,31 +2,35 @@
 
 using namespace std;
 
-int dp[102];
+int t[20];
+int p[20];
+int d[20];
 
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int tc;
-    cin >> tc;
+    int n;
+    cin >> n;
 
-    dp[1] = 1;
-    dp[2] = 1;
-    dp[3] = 1;
-    dp[4] = 2;
-    dp[5] = 2;
-
-    for(int cnt_i=6;cnt_i<=100;cnt_i++){
-        dp[cnt_i] = dp[cnt_i-1] + dp[cnt_i-5];
+    for(int cnt_i=1;cnt_i<=n;cnt_i++){
+        cin >> t[cnt_i];
+        cin >> p[cnt_i];
     }
 
-    while(tc--){
-        int n;
-        cin >> n;
-
-        cout << dp[n] << "\n";
+    for(int cnt_i=n;cnt_i>=1;cnt_i--){
+        if(cnt_i+t[cnt_i] <= n+1){
+            // 오늘 상담을 한다 .. 안한다.
+            d[cnt_i] = max(d[cnt_i+t[cnt_i]] + p[cnt_i], d[cnt_i+1]);
+        }
     }
+
+    int ans=0;
+    for(int cnt_i=1;cnt_i<=n;cnt_i++){
+        ans = max(ans, d[cnt_i]);
+    }
+
+    cout << ans;
 
     return 0;
 }
