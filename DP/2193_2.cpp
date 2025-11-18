@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int dp[92][2];
+long long dp[92][2];
 
 int main(){
     ios::sync_with_stdio(false);
@@ -12,8 +12,7 @@ int main(){
     cin >> n;
 
     dp[1][1] = 1;
-
-    for(int cnt_i=2;cnt_i<=n;cnt_i++){
+    for(int cnt_i=2;cnt_i<=90;cnt_i++){
         dp[cnt_i][0] = dp[cnt_i-1][0] + dp[cnt_i-1][1];
         dp[cnt_i][1] = dp[cnt_i-1][0];
     }
